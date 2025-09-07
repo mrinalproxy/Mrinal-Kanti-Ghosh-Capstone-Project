@@ -10,30 +10,31 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo "Cloning GitHub repository..."
-                git url: 'https://github.com/mrinalproxy/Mrinal-Kanti-Ghosh-Wipro-Capstone-Project.git', branch: 'main'
+                git url: 'https://github.com/mrinalproxy/Mrinal-Kanti-Ghosh-Capstone-Project.git', branch: 'main'
             }
         }
 
         stage('Clean and Build') {
             steps {
                 echo "Cleaning and building project using Maven..."
-               // sh "mvn clean compile"  // on Linux/Mac
-                 bat "mvn clean compile" // on Windows
+                bat "mvn clean compile" // Windows
             }
         }
 
         stage('Run Tests') {
             steps {
-                echo "Running TestNG+Cucumber tests..."
-                //sh "mvn test"  // on Linux/Mac
-                 bat "mvn test" // on Windows
+                echo "Running TestNG + Cucumber tests..."
+                bat "mvn test" // Windows
             }
         }
 
         stage('Generate Report') {
             steps {
-                echo "Generating Cucumber HTML report..."
-                cucumber buildStatus: 'UNSTABLE', fileIncludePattern: '**/cucumber.json', jsonReportDirectory: 'target/cucumber-reports', pluginUrlPath: '', sortingMethod: 'ALPHABETICAL'
+                echo "Publishing Cucumber HTML report..."
+                cucumber fileIncludePattern: '**/cucumber.json',
+                         jsonReportDirectory: 'target/cucumber-reports',
+                         reportTitle: 'Cucumber Report',
+                         buildStatus: 'UNSTABLE'
             }
         }
     }
@@ -44,10 +45,10 @@ pipeline {
             cleanWs()
         }
         success {
-            echo "Pipeline completed successfully!"
+            echo "✅ Pipeline completed successfully!"
         }
         failure {
-            echo "Pipeline failed. Check logs."
+            echo "❌ Pipeline failed. Check logs."
         }
     }
 }
