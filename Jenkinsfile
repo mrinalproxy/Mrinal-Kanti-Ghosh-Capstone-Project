@@ -17,16 +17,16 @@ pipeline {
         stage('Clean and Build') {
             steps {
                 echo "Cleaning and building project using Maven..."
-                sh "mvn clean compile"  // on Linux/Mac
-                // bat "mvn clean compile" // on Windows
+               // sh "mvn clean compile"  // on Linux/Mac
+                 bat "mvn clean compile" // on Windows
             }
         }
 
         stage('Run Tests') {
             steps {
                 echo "Running TestNG+Cucumber tests..."
-                sh "mvn test"  // on Linux/Mac
-                // bat "mvn test" // on Windows
+                //sh "mvn test"  // on Linux/Mac
+                 bat "mvn test" // on Windows
             }
         }
 
