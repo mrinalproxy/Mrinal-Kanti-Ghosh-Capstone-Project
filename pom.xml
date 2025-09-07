@@ -10,7 +10,6 @@
   <packaging>jar</packaging>
 
   <name>nopcommerce-capstone</name>
-  <url>http://maven.apache.org</url>
 
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
@@ -24,30 +23,21 @@
   </properties>
 
   <dependencies>
-
-    <!-- ✅ Selenium WebDriver (includes all bindings) -->
+    <!-- ✅ Selenium -->
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
       <version>${selenium.version}</version>
     </dependency>
 
-    <!-- ✅ Explicit selenium-api (for WebElement, By, etc.) -->
-    <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-api</artifactId>
-      <version>${selenium.version}</version>
-    </dependency>
-
-    <!-- TestNG -->
+    <!-- ✅ TestNG (compile scope now, no <scope>test</scope>) -->
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>${testng.version}</version>
-      <scope>test</scope>
     </dependency>
 
-    <!-- Cucumber -->
+    <!-- ✅ Cucumber -->
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-java</artifactId>
@@ -60,14 +50,14 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- ExtentReports -->
+    <!-- ✅ ExtentReports -->
     <dependency>
       <groupId>com.aventstack</groupId>
       <artifactId>extentreports</artifactId>
       <version>${extentreports.version}</version>
     </dependency>
 
-    <!-- SLF4J -->
+    <!-- ✅ Logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
@@ -79,26 +69,24 @@
       <version>${slf4j.version}</version>
     </dependency>
 
-    <!-- Jackson (optional for JSON/report parsing) -->
+    <!-- ✅ JSON -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>2.17.0</version>
     </dependency>
 
-    <!-- WebDriverManager -->
+    <!-- ✅ WebDriverManager -->
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
       <version>6.3.1</version>
     </dependency>
-
   </dependencies>
 
   <build>
     <plugins>
-
-      <!-- Maven Compiler Plugin -->
+      <!-- Compiler -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -109,7 +97,7 @@
         </configuration>
       </plugin>
 
-      <!-- Maven Surefire Plugin for TestNG -->
+      <!-- Surefire -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -120,7 +108,6 @@
           </suiteXmlFiles>
         </configuration>
       </plugin>
-
     </plugins>
   </build>
 </project>
