@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="10" passed="10" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-09-07T20:00:32 IST" name="NopCommerce Suite" finished-at="2025-09-07T20:01:06 IST" duration-ms="34028">
+    <groups>
+    </groups>
+    <test started-at="2025-09-07T20:00:32 IST" name="AllTests" finished-at="2025-09-07T20:01:06 IST" duration-ms="34028">
+      <class name="testcases.RegisterTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:testcases.RegisterTest@50caa560]" started-at="2025-09-07T20:00:45 IST" name="setup" finished-at="2025-09-07T20:00:47 IST" duration-ms="1505" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="validRegistrationTest()[pri:1, instance:testcases.RegisterTest@50caa560]" started-at="2025-09-07T20:00:47 IST" name="validRegistrationTest" finished-at="2025-09-07T20:00:56 IST" duration-ms="8834" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validRegistrationTest -->
+        <test-method signature="duplicateEmailRegistrationTest()[pri:2, instance:testcases.RegisterTest@50caa560]" started-at="2025-09-07T20:00:56 IST" name="duplicateEmailRegistrationTest" finished-at="2025-09-07T20:00:58 IST" duration-ms="1875" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- duplicateEmailRegistrationTest -->
+        <test-method signature="passwordMismatchTest()[pri:3, instance:testcases.RegisterTest@50caa560]" started-at="2025-09-07T20:00:58 IST" name="passwordMismatchTest" finished-at="2025-09-07T20:00:59 IST" duration-ms="1365" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- passwordMismatchTest -->
+        <test-method signature="blankFieldsRegistrationTest()[pri:4, instance:testcases.RegisterTest@50caa560]" started-at="2025-09-07T20:00:59 IST" name="blankFieldsRegistrationTest" finished-at="2025-09-07T20:01:00 IST" duration-ms="780" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- blankFieldsRegistrationTest -->
+        <test-method is-config="true" signature="teardown()[pri:0, instance:testcases.RegisterTest@50caa560]" started-at="2025-09-07T20:01:00 IST" name="teardown" finished-at="2025-09-07T20:01:00 IST" duration-ms="457" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- testcases.RegisterTest -->
+      <class name="testcases.ProductTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:testcases.ProductTest@2a266d09]" started-at="2025-09-07T20:01:00 IST" name="setup" finished-at="2025-09-07T20:01:03 IST" duration-ms="2461" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="searchLaptopTest()[pri:1, instance:testcases.ProductTest@2a266d09]" started-at="2025-09-07T20:01:03 IST" name="searchLaptopTest" finished-at="2025-09-07T20:01:04 IST" duration-ms="1593" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- searchLaptopTest -->
+        <test-method signature="navigateAndSearchDesktopsTest()[pri:2, instance:testcases.ProductTest@2a266d09]" started-at="2025-09-07T20:01:04 IST" name="navigateAndSearchDesktopsTest" finished-at="2025-09-07T20:01:06 IST" duration-ms="1558" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- navigateAndSearchDesktopsTest -->
+        <test-method is-config="true" signature="teardown()[pri:0, instance:testcases.ProductTest@2a266d09]" started-at="2025-09-07T20:01:06 IST" name="teardown" finished-at="2025-09-07T20:01:06 IST" duration-ms="358" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- testcases.ProductTest -->
+      <class name="testcases.LoginTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:testcases.LoginTest@60015ef5]" started-at="2025-09-07T20:00:32 IST" name="setup" finished-at="2025-09-07T20:00:38 IST" duration-ms="6145" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="validLoginTest()[pri:1, instance:testcases.LoginTest@60015ef5]" started-at="2025-09-07T20:00:38 IST" name="validLoginTest" finished-at="2025-09-07T20:00:40 IST" duration-ms="1312" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validLoginTest -->
+        <test-method signature="invalidEmailLoginTest()[pri:2, instance:testcases.LoginTest@60015ef5]" started-at="2025-09-07T20:00:40 IST" name="invalidEmailLoginTest" finished-at="2025-09-07T20:00:41 IST" duration-ms="880" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- invalidEmailLoginTest -->
+        <test-method signature="invalidPasswordLoginTest()[pri:3, instance:testcases.LoginTest@60015ef5]" started-at="2025-09-07T20:00:41 IST" name="invalidPasswordLoginTest" finished-at="2025-09-07T20:00:44 IST" duration-ms="3545" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- invalidPasswordLoginTest -->
+        <test-method signature="blankFieldsLoginTest()[pri:4, instance:testcases.LoginTest@60015ef5]" started-at="2025-09-07T20:00:44 IST" name="blankFieldsLoginTest" finished-at="2025-09-07T20:00:44 IST" duration-ms="291" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- blankFieldsLoginTest -->
+        <test-method is-config="true" signature="teardown()[pri:0, instance:testcases.LoginTest@60015ef5]" started-at="2025-09-07T20:00:44 IST" name="teardown" finished-at="2025-09-07T20:00:45 IST" duration-ms="969" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- testcases.LoginTest -->
+    </test> <!-- AllTests -->
+  </suite> <!-- NopCommerce Suite -->
+</testng-results>
