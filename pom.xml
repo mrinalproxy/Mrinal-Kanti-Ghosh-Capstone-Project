@@ -30,12 +30,11 @@
       <version>${selenium.version}</version>
     </dependency>
 
-    <!-- ✅ TestNG (test scope only) -->
+    <!-- ✅ TestNG (compile scope, needed in src/main/java) -->
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>${testng.version}</version>
-      <scope>test</scope>
     </dependency>
 
     <!-- ✅ Cucumber -->
