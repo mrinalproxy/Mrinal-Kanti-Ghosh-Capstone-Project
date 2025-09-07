@@ -30,11 +30,12 @@
       <version>${selenium.version}</version>
     </dependency>
 
-    <!-- ✅ TestNG (compile scope now, no <scope>test</scope>) -->
+    <!-- ✅ TestNG (test scope only) -->
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>${testng.version}</version>
+      <scope>test</scope>
     </dependency>
 
     <!-- ✅ Cucumber -->
@@ -85,6 +86,16 @@
   </dependencies>
 
   <build>
+    <!-- ✅ include feature files from src/main/resources -->
+    <testResources>
+      <testResource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.feature</include>
+        </includes>
+      </testResource>
+    </testResources>
+
     <plugins>
       <!-- Compiler -->
       <plugin>

@@ -6,9 +6,10 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/main/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
@@ -109,13 +110,6 @@
 	<classpathentry kind="lib" path="C:/Users/USER/Downloads/selenium-java-4.12.1/lib/netty-reactive-streams-2.0.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/USER/Downloads/selenium-java-4.12.1/lib/netty-resolver-4.1.96.Final.jar"/>
 	<classpathentry kind="lib" path="C:/Users/USER/Downloads/selenium-java-4.12.1/lib/netty-transport-4.1.96.Final.jar"/>
-	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
-		<attributes>
-			<attribute name="test" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="optional" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/USER/Downloads/chromedriver-win64.zip"/>
 	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/USER/.p2/pool/plugins/slf4j.api_2.0.17.jar"/>
