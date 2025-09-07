@@ -1,16 +1,17 @@
-Feature: Product Browsing and Search
+Feature: Product Search and Navigation
 
-  Scenario: Search for a laptop
-    Given user is on homepage
-    When user searches for "Laptop"
-    Then search results should be displayed
+  Scenario: Search for a product
+    Given user is on the homepage
+    When user searches for a product "Laptop"
+    Then search results should display at least one product
 
-  Scenario: Browse desktops category
-    Given user navigates to Desktops category
-    Then search results should be displayed
+  Scenario: Navigate to Computers → Desktops
+    Given user is on the homepage
+    When user navigates to Computers category and then Desktops
+    Then Desktops category should display products
 
-  Scenario: Add a product from search to cart
-    Given user is on homepage
-    When user searches for "Laptop"
-    And user adds first product to cart
-    Then product should be added to cart
+  Scenario: Add first product to cart
+    Given user is on the homepage
+    When user searches for a product "Laptop"
+    And user adds the first product to the cart
+    Then the cart should have at least one item
