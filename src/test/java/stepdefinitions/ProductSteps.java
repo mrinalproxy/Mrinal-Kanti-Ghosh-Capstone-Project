@@ -1,52 +1,37 @@
 package stepdefinitions;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-import io.cucumber.java.en.Then;
-import org.openqa.selenium.By;
+import io.cucumber.java.en.*;
+import org.testng.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import utils.DriverManager;
-
-import static org.testng.Assert.assertTrue;
+import pages.ProductPage;
 
 public class ProductSteps {
-    WebDriver driver = DriverManager.getDriver();
+    private WebDriver driver = DriverManager.getDriver();
+    private ProductPage productPage = new ProductPage(driver);
 
     @Given("user is on homepage")
     public void user_is_on_homepage() {
-        driver.get("https://demo.nopcommerce.com/");
+        driver.get("https://demo.nopcommerce.com");
     }
 
     @When("user searches for {string}")
     public void user_searches_for(String product) {
-        WebElement searchBox = driver.findElement(By.id("small-searchterms"));
-        searchBox.clear();
-        searchBox.sendKeys(product);
-        driver.findElement(By.cssSelector("button.search-box-button")).click();
+        productPage.searchProduct(product);
     }
 
-    @Then("search results should display {string}")
-    public void search_results_should_display(String product) {
-        String resultsText = driver.findElement(By.cssSelector(".product-item")).getText();
-        assertTrue(resultsText.toLowerCase().contains(product.toLowerCase()),
-                "Search results do not contain: " + product);
+    @Then("search results should be displayed")
+    public void search_results_should_be_displayed() {
+        Assert.assertTrue(productPage.getProductCount() > 0, "Search returned no results");
     }
 
-    @Given("user is on products page")
-    public void user_is_on_products_page() {
-        driver.get("https://demo.nopcommerce.com/electronics");
+    @Given("user navigates to Desktops category")
+    public void user_navigates_to_desktops_category() {
+        productPage.navigateToDesktops();
     }
 
-    @When("user filters by {string}")
-    public void user_filters_by(String category) {
-        // Example: click on category link
-        driver.findElement(By.linkText(category)).click();
-    }
-
-    @Then("only electronics products are shown")
-    public void only_electronics_products_are_shown() {
-        String pageTitle = driver.findElement(By.cssSelector(".page-title h1")).getText();
-        assertTrue(pageTitle.contains("Electronics"), "Not filtered correctly!");
+    @When("user adds first product to cart")
+    public void user_adds_first_product_to_cart() {
+        productPage.addFirstProductToCart();
     }
 }

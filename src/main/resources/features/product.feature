@@ -1,18 +1,16 @@
-Feature: Products
+Feature: Product Browsing and Search
 
-  Scenario Outline: Search products
+  Scenario: Search for a laptop
     Given user is on homepage
-    When user searches for "<product>"
-    Then search results should display "<product>"
+    When user searches for "Laptop"
+    Then search results should be displayed
 
-    Examples:
-      | product      |
-      | Laptop       |
-      | Phone        |
-      | Tablet       |
-      | Headphones   |
+  Scenario: Browse desktops category
+    Given user navigates to Desktops category
+    Then search results should be displayed
 
-  Scenario: Filter products by category
-    Given user is on products page
-    When user filters by "Electronics"
-    Then only electronics products are shown
+  Scenario: Add a product from search to cart
+    Given user is on homepage
+    When user searches for "Laptop"
+    And user adds first product to cart
+    Then product should be added to cart

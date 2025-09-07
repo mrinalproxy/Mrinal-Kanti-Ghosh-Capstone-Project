@@ -1,21 +1,47 @@
 package stepdefinitions;
 
 import io.cucumber.java.en.*;
+import org.testng.Assert;
+import org.openqa.selenium.WebDriver;
+import utils.DriverManager;
+import pages.LoginPage;
 
 public class LoginSteps {
+    private WebDriver driver = DriverManager.getDriver();
+    private LoginPage loginPage = new LoginPage(driver);
 
-    @Given("I open the browser")
-    public void i_open_the_browser() {
-        System.out.println("Browser opened");
+    private final String validEmail = "existingemail@example.com";
+    private final String validPassword = "Password123";
+
+    @Given("user is on login page")
+    public void user_is_on_login_page() {
+        loginPage.goToLoginPage();
     }
 
-    @When("I enter valid credentials")
-    public void i_enter_valid_credentials() {
-        System.out.println("Entered valid credentials");
+    @When("user enters valid email and password")
+    public void user_enters_valid_email_and_password() {
+        loginPage.enterEmail(validEmail);
+        loginPage.enterPassword(validPassword);
     }
 
-    @Then("I should see the dashboard")
-    public void i_should_see_the_dashboard() {
-        System.out.println("Dashboard displayed");
+    @When("user enters invalid email and valid password")
+    public void user_enters_invalid_email_and_valid_password() {
+        loginPage.enterEmail("wrong@example.com");
+        loginPage.enterPassword(validPassword);
+    }
+
+    @When("clicks login button")
+    public void clicks_login_button() {
+        loginPage.clickLogin();
+    }
+
+    @Then("user should be logged in successfully")
+    public void user_should_be_logged_in_successfully() {
+        Assert.assertTrue(driver.getCurrentUrl().contains("nopcommerce"), "Login failed");
+    }
+
+    @Then("error message should be displayed")
+    public void error_message_should_be_displayed() {
+        Assert.assertTrue(loginPage.getErrorMessage().contains("Login was unsuccessful"));
     }
 }

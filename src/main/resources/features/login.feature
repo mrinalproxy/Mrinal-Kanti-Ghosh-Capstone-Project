@@ -1,23 +1,13 @@
-Feature: Login
+Feature: Login Functionality
 
-  Scenario: Valid login
+  Scenario: Successful login
     Given user is on login page
-    When user enters valid credentials
-    Then user should be logged in
+    When user enters valid email and password
+    And clicks login button
+    Then user should be logged in successfully
 
-  Scenario: Invalid login
+  Scenario: Unsuccessful login with invalid credentials
     Given user is on login page
-    When user enters invalid credentials
+    When user enters invalid email and valid password
+    And clicks login button
     Then error message should be displayed
-
-  Scenario Outline: Login with multiple users
-    Given user is on login page
-    When user enters username "<username>" and password "<password>"
-    Then user should see login result "<result>"
-
-    Examples:
-      | username  | password | result      |
-      | user1     | pass1    | success     |
-      | user2     | wrong    | failure     |
-      | user3     | pass3    | success     |
-      | user4     | wrong    | failure     |

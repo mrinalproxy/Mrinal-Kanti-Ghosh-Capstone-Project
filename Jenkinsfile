@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven3'   // Name must match your Jenkins Maven installation
-        jdk 'jdk11'      // Name must match your Jenkins JDK installation
+        maven 'Maven3'   // name must match the Maven tool you set up in Jenkins
+        jdk 'jdk11'      // name must match the JDK you set up in Jenkins
     }
 
     stages {
@@ -13,29 +13,35 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build & Test') {
             steps {
-                sh 'mvn clean compile'
+                sh 'mvn clean test'
             }
         }
 
-        stage('Run Tests') {
+        stage('Cucumber HTML Report') {
             steps {
-                sh 'mvn test'
-            }
-        }
-
-        stage('Publish Reports') {
-            steps {
-                publishHTML(target: [
-                    allowMissing: true,
+                publishHTML([
+                    allowMissing: false,
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
                     reportDir: 'target/cucumber-reports',
-                    reportFiles: 'index.html',
+                    reportFiles: 'cucumber.html',
                     reportName: 'Cucumber Report'
                 ])
             }
+        }
+    }
+
+    post {
+        always {
+            junit 'target/surefire-reports/*.xml'
+        }
+        success {
+            echo '✅ Build & Tests Passed!'
+        }
+        failure {
+            echo '❌ Build Failed!'
         }
     }
 }

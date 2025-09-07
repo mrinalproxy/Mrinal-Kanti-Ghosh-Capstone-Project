@@ -2,41 +2,69 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LoginPage {
-
     private WebDriver driver;
+    private WebDriverWait wait;
 
-    // Locators
-    private By emailInput = By.id("Email");
-    private By passwordInput = By.id("Password");
-    private By loginButton = By.xpath("//button[contains(text(),'Log in')]");
-    private By myAccountLink = By.xpath("//a[contains(text(),'My account')]");
-    private By loginErrorMsg = By.xpath("//div[@class='message-error validation-summary-errors']");
+    private By emailField = By.id("Email");
+    private By passwordField = By.id("Password");
+    private By loginButton = By.xpath("//button[text()='Log in']");
+    private By errorMessage = By.cssSelector(".message-error");
+    private By logoutLink = By.cssSelector("a.ico-logout"); // appears after successful login
 
-    public LoginPage(WebDriver driver) {
+    public LoginPage(WebDriver driver){
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public void enterEmail(String email) {
-        driver.findElement(emailInput).clear();
-        driver.findElement(emailInput).sendKeys(email);
+    public void goToLoginPage(){
+        driver.get("https://demo.nopcommerce.com/login");
     }
 
-    public void enterPassword(String password) {
-        driver.findElement(passwordInput).clear();
-        driver.findElement(passwordInput).sendKeys(password);
+    public void enterEmail(String email){
+        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(emailField));
+        e.clear();
+        e.sendKeys(email);
     }
 
-    public void clickLogin() {
-        driver.findElement(loginButton).click();
+    public void enterPassword(String password){
+        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField));
+        e.clear();
+        e.sendKeys(password);
     }
 
-    public boolean isMyAccountDisplayed() {
-        return driver.findElement(myAccountLink).isDisplayed();
+    public void clickLogin(){
+        WebElement e = wait.until(ExpectedConditions.elementToBeClickable(loginButton));
+        e.click();
     }
 
-    public boolean isLoginErrorDisplayed() {
-        return driver.findElement(loginErrorMsg).isDisplayed();
+    public String getErrorMessage(){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)).getText();
+    }
+
+    /**
+     * Unified login method
+     * @param email
+     * @param password
+     * @return true if login is successful, false otherwise
+     */
+    public boolean login(String email, String password){
+        goToLoginPage();
+        enterEmail(email);
+        enterPassword(password);
+        clickLogin();
+        try {
+            // wait for logout link to confirm login success
+            wait.until(ExpectedConditions.visibilityOfElementLocated(logoutLink));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

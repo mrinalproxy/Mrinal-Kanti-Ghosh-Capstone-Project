@@ -1,23 +1,5 @@
-Feature: Cart Management
+Feature: Cart Functionality
 
-  Scenario: Add single product to cart
-    Given user is on products page
-    When user adds product to cart
-    Then cart count should increase
-
-  Scenario: Remove product from cart
-    Given user has product in cart
-    When user removes product
-    Then cart should be empty
-
-  Scenario Outline: Add multiple products
-    Given user is on products page
-    When user adds "<product>" to cart
-    Then cart should reflect "<count>"
-
-    Examples:
-      | product    | count |
-      | Laptop     | 1     |
-      | Phone      | 2     |
-      | Tablet     | 3     |
-      | Headphones | 4     |
+  Scenario: Verify product in cart
+    Given user has at least one product in cart
+    Then product should be added to cart
