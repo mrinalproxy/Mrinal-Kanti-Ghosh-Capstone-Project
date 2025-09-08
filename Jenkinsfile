@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        jdk 'jdk17'        // JDK you configured in Jenkins
-        maven 'Maven3'     // Maven you configured in Jenkins
+        jdk 'jdk17'
+        maven 'Maven3'
     }
 
     stages {
@@ -17,24 +17,29 @@ pipeline {
         stage('Clean and Build') {
             steps {
                 echo "Cleaning and building project using Maven..."
-                bat "mvn clean compile" // Windows
+                bat "mvn clean compile"
             }
         }
 
         stage('Run Tests') {
             steps {
-                echo "Running TestNG + Cucumber tests..."
-                bat "mvn test" // Windows
+                echo "Running TestNG tests..."
+                bat "mvn test"
             }
         }
 
         stage('Generate Report') {
             steps {
-                echo "Publishing Cucumber HTML report..."
-                cucumber fileIncludePattern: '**/cucumber.json',
-                         jsonReportDirectory: 'target/cucumber-reports',
-                         reportTitle: 'Cucumber Report',
-                         buildStatus: 'UNSTABLE'
+                echo "Publishing TestNG HTML report and archiving test-output..."
+                // Publish HTML report (HTML Publisher plugin required)
+                publishHTML([allowMissing: true,
+                             alwaysLinkToLastBuild: true,
+                             keepAll: true,
+                             reportDir: 'test-output',
+                             reportFiles: 'index.html',
+                             reportName: 'TestNG Report'])
+                // Archive all files under test-output for download
+                archiveArtifacts artifacts: 'test-output/**', fingerprint: true
             }
         }
     }
@@ -45,10 +50,10 @@ pipeline {
             cleanWs()
         }
         success {
-            echo "✅ Pipeline completed successfully!"
+            echo "Pipeline completed successfully!"
         }
         failure {
-            echo "❌ Pipeline failed. Check logs."
+            echo " Pipeline failed. Check logs."
         }
     }
 }
