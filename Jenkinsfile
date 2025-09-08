@@ -31,15 +31,28 @@ pipeline {
         stage('Generate Report') {
             steps {
                 echo "Publishing TestNG HTML report and archiving test-output..."
-                // Publish HTML report (HTML Publisher plugin required)
                 publishHTML([allowMissing: true,
                              alwaysLinkToLastBuild: true,
                              keepAll: true,
                              reportDir: 'test-output',
                              reportFiles: 'index.html',
                              reportName: 'TestNG Report'])
-                // Archive all files under test-output for download
                 archiveArtifacts artifacts: 'test-output/**', fingerprint: true
+            }
+        }
+
+        stage('Git Push Reports') {
+            steps {
+                echo "Adding, committing and pushing reports back to GitHub..."
+
+                bat '''
+                git config user.email "mrinalghosh360@gmail.com"
+                git config user.name "Mrinal Kanti Ghosh"
+
+                git add test-output/*
+                git commit -m "Update TestNG reports from Jenkins build"
+                git push origin main
+                '''
             }
         }
     }
@@ -53,7 +66,7 @@ pipeline {
             echo "Pipeline completed successfully!"
         }
         failure {
-            echo " Pipeline failed. Check logs."
+            echo "Pipeline failed. Check logs."
         }
     }
 }
