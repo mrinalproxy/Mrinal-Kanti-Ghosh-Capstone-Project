@@ -6,17 +6,28 @@ pipeline {
         maven 'Maven3'
     }
 
+    environment {
+        BRANCH_NAME = 'main'
+        COMMIT_MESSAGE = 'Jenkins: Auto-commit TestNG reports after build'
+    }
+
+    // Poll SCM every 15 mins for changes
+    triggers {
+        pollSCM('H/15 * * * *')
+    }
+
     stages {
         stage('Checkout') {
             steps {
                 echo "Cloning GitHub repository..."
-                git url: 'https://github.com/mrinalproxy/Mrinal-Kanti-Ghosh-Capstone-Project.git', branch: 'main'
+                git branch: "${env.BRANCH_NAME}",
+                    url: 'https://github.com/mrinalproxy/Mrinal-Kanti-Ghosh-Capstone-Project.git'
             }
         }
 
         stage('Clean and Build') {
             steps {
-                echo "Cleaning and building project using Maven..."
+                echo "Cleaning and compiling project..."
                 bat "mvn clean compile"
             }
         }
@@ -24,13 +35,13 @@ pipeline {
         stage('Run Tests') {
             steps {
                 echo "Running TestNG tests..."
-                bat "mvn test"
+                bat "mvn test -DsuiteXmlFile=src/test/resources/testng.xml"
             }
         }
 
-        stage('Generate Report') {
+        stage('Publish Reports') {
             steps {
-                echo "Publishing TestNG HTML report and archiving test-output..."
+                echo "Publishing TestNG reports..."
                 publishHTML([allowMissing: true,
                              alwaysLinkToLastBuild: true,
                              keepAll: true,
@@ -41,18 +52,31 @@ pipeline {
             }
         }
 
-        stage('Git Push Reports') {
+        stage('Commit & Push Reports') {
             steps {
-                echo "Adding, committing and pushing reports back to GitHub..."
+                script {
+                    echo "Adding, committing and pushing reports back to GitHub..."
 
-                bat '''
-                git config user.email "mrinalghosh360@gmail.com"
-                git config user.name "Mrinal Kanti Ghosh"
+                    withCredentials([usernamePassword(
+                        credentialsId: 'github-jenkins',
+                        usernameVariable: 'GIT_USER',
+                        passwordVariable: 'GIT_TOKEN')]) {
 
-                git add test-output/*
-                git commit -m "Update TestNG reports from Jenkins build"
-                git push origin main
-                '''
+                        bat """
+                            git config user.email "mrinalghosh360@gmail.com"
+                            git config user.name "Mrinal Kanti Ghosh"
+
+                            git status
+                            git add test-output/*
+
+                            REM Commit only if there are changes
+                            git diff --cached --quiet || git commit -m "${COMMIT_MESSAGE}"
+
+                            REM Push using token
+                            git push https://%GIT_USER%:%GIT_TOKEN%@github.com/mrinalproxy/Mrinal-Kanti-Ghosh-Capstone-Project.git ${BRANCH_NAME}
+                        """
+                    }
+                }
             }
         }
     }
@@ -63,10 +87,10 @@ pipeline {
             cleanWs()
         }
         success {
-            echo "Pipeline completed successfully!"
+            echo "✅ Pipeline completed successfully!"
         }
         failure {
-            echo "Pipeline failed. Check logs."
+            echo "❌ Pipeline failed. Check logs."
         }
     }
 }
